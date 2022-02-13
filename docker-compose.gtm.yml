@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+
+  gtm_production:
+    image: gcr.io/cloud-tagging-10302018/gtm-cloud-image:stable
+    environment:
+      ENVIRONMENT: production
+      CONTAINER_CONFIG: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx #needs to be changed
+      PREVIEW_SERVER_URL: 'https://preview.yourdomain.com' #needs to be changed
+    networks:
+      - gtm_network
+    restart: always
+
+  gtm_preview:
+    image: gcr.io/cloud-tagging-10302018/gtm-cloud-image:stable
+    environment:
+      ENVIRONMENT: preview
+      CONTAINER_CONFIG: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx #needs to be changed
+      RUN_AS_PREVIEW_SERVER: 'true'
+    networks:
+      - gtm_network
+    restart: always
+
+networks:
+  gtm_network:
+    driver: bridge

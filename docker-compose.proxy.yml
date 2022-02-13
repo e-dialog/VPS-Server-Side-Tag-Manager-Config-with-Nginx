@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+
+  proxy:
+    image: nginx
+    ports:
+      - 80:80
+      - 443:443
+      - 8080:8080
+    networks:
+      - gtm_network
+    external_links:
+      - gtm_production
+      - gtm_preview
+    volumes:
+      - ./logs/:/etc/nginx/logs/
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./webroot/:/var/www/html/
+      - /etc/letsencrypt/:/etc/letsencrypt/
+
+networks:
+  gtm_network:
+    driver: bridge
